@@ -13,10 +13,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['web']], function () {
+    Route::auth();
+    Route::get('/home', 'HomeController@index');
+    Route::get('/', 'HomeController@index');
+
 });
 
-Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Registration Routes...
+if ($options['register'] ?? true) {
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'Auth\RegisterController@register');
+}
+
+// Password Reset Routes...
+if ($options['reset'] ?? true) {
+    Route::resetPassword();
+}
+
+// Email Verification Routes...
+if ($options['verify'] ?? false) {
+    Route::emailVerification();
+}
+
+
+
