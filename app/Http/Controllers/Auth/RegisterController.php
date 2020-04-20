@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'nombre' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
             'tipoUsuario' => ['required', 'string', 'max:255'],
-            'nomreUsuario' => ['required', 'string', 'max:255', 'unique:users'],
+            'nombreUsuario' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -74,4 +74,14 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    //Comentar estas lineas para permitir el registro de usuarios en la ruta /register
+    public function register() {
+        return redirect('/');
+    }
+    
+    public function showRegistrationForm() {
+        return redirect('/');
+    }
+
 }

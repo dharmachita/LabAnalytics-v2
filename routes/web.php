@@ -21,8 +21,10 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
 
 // Registration Routes...
 if ($options['register'] ?? true) {
