@@ -77,11 +77,11 @@ class RegisterController extends Controller
 
     //Comentar estas lineas para permitir el registro de usuarios en la ruta /register
     public function register() {
-        return redirect('/');
+        return abort(404);
     }
     
     public function showRegistrationForm() {
-        return redirect('/');
+        return abort(404);
     }
 
 }

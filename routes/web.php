@@ -32,6 +32,7 @@ if ($options['register'] ?? true) {
     Route::post('register', 'Auth\RegisterController@register');
 }
 
+
 // Password Reset Routes...
 if ($options['reset'] ?? true) {
     Route::resetPassword();

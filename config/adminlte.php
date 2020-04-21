@@ -65,7 +65,7 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
@@ -209,83 +209,97 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
+            'text'    => 'Alta de Instrumentos',
+            'icon'    => 'fa fa-plus-circle',
+            'submenu' => 
+            [
                 [
-                    'text' => 'level_one',
+                    'text' => 'Alta de Equipo',
                     'url'  => '#',
+                    'icon_color'=>'red',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
+                    'text' => 'Alta de Patrón',
                     'url'  => '#',
+                    'icon_color'=>'yellow',
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
+            'text'    => 'Listar Instrumentos',
+            'icon'    => 'fa fa-list-alt',
+            'url'  => '#',
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
+            'text'    => 'Calibraciones',
+            'icon'    => 'fa fa-briefcase ',
+            'submenu' => 
+            [
+                [
+                    'text' => 'Calibración de Equipo',
+                    'url'  => '#',
+                    'icon_color'=>'red',
+                ],
+                [
+                    'text' => 'Calibración de Patrón',
+                    'url'  => '#',
+                    'icon_color'=>'yellow',
+                ],
+                [
+                    'text' => 'Ver Calibración',
+                    'url'  => '#',
+                    'icon_color'=>'green',
+                ],
+            ],
         ],
         [
-            'text'       => 'information',
-            'icon_color' => 'aqua',
+            'text'    => 'Reparaciones',
+            'icon'    => 'fa fa-cogs ',
+            'submenu' => 
+            [
+                [
+                    'text' => 'Inlcuir Reparación',
+                    'url'  => '#',
+                    'icon_color'=>'red',
+                ],
+                [
+                    'text' => 'Ver Reparación',
+                    'url'  => '#',
+                    'icon_color'=>'yellow',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Movimientos',
+            'icon'    => 'fa fa-history ',
+            'submenu' => 
+            [
+                [
+                    'text' => 'Agregar Movimiento',
+                    'url'  => '#',
+                    'icon_color'=>'red',
+                ],
+                [
+                    'text' => 'Ver Historial',
+                    'url'  => '#',
+                    'icon_color'=>'yellow',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Ubicaciones',
+            'icon'    => 'fa fa-building',
+            'url'  => '#',
+        ],
+        [
+            'text'    => 'Tipo de Equipo',
+            'icon'    => 'fa fa-certificate',
+            'url'  => '#',
+        ],
+        [
+            'text'    => 'Tipo de Patrón',
+            'icon'    => 'fa fa-cubes',
+            'url'  => '#',
         ],
     ],
 
