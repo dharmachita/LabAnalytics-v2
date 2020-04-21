@@ -43,5 +43,13 @@ if ($options['verify'] ?? false) {
     Route::emailVerification();
 }
 
+//Rutas de la aplicación
+//UBICACIONES
+Route::resource('/ubicaciones', 'UbicacionController')->middleware('calidad');
 
+//UBICACIONES
+Route::resource('/tipo_equipo', 'TipoEquipoController')->middleware('calidad');
+
+//UBICACIONES
+Route::resource('/tipo_patron', 'TipoPatronController')->middleware('calidad');
 

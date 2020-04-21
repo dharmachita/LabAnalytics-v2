@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
@@ -18,7 +19,7 @@ class CalidadRol
         if (!isset(Auth::user()->nombreUsuario)) {
             return redirect('/login');
         }
-        $user_actual=\Auth::user();
+        $user_actual=Auth::user();
         if($user_actual->tipoUsuario!='calidad'){
             return redirect('/home');
         }

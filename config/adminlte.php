@@ -289,17 +289,17 @@ return [
         [
             'text'    => 'Ubicaciones',
             'icon'    => 'fa fa-building',
-            'url'  => '#',
+            'url'  => 'ubicaciones',
         ],
         [
             'text'    => 'Tipo de Equipo',
             'icon'    => 'fa fa-certificate',
-            'url'  => '#',
+            'url'  => 'tipo_equipo',
         ],
         [
             'text'    => 'Tipo de Patrón',
             'icon'    => 'fa fa-cubes',
-            'url'  => '#',
+            'url'  => 'tipo_patron',
         ],
     ],
 
