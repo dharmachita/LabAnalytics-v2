@@ -1,0 +1,5 @@
+function showNewLocation(){
+    $("#crearUbicacion").slideToggle();
+}
+
+	

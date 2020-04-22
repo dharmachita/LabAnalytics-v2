@@ -15,7 +15,7 @@ class TipoEquipoController extends Controller
     public function index()
     {
         $tipos = TipoEquipo::all();
-        return view('calidad\tipo_equipo',['tipos'=>$tipos]);
+        return view('calidad\tipoEquipo\tipo_equipo',['tipos'=>$tipos]);
     }
 }
 

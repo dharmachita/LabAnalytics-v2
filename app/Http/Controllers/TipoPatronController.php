@@ -15,6 +15,6 @@ class TipoPatronController extends Controller
     public function index()
     {
         $tipos = TipoPatron::all();
-        return view('calidad\tipo_patron',['tipos'=>$tipos]);
+        return view('calidad\tipoPatron\tipo_patron',['tipos'=>$tipos]);
     }
 }

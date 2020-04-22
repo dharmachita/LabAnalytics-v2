@@ -1,0 +1,16 @@
+.dan-modal{
+    background-color: rgb(177, 4, 4);
+    color: whitesmoke;
+}
+
+.info-modal{
+    background-color: rgb(110, 200, 241);
+}
+
+.show-row{
+    display:block;
+}
+
+.hide-row{
+    display:none;
+}
