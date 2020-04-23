@@ -1,5 +1,5 @@
 <div class="container">
-    @if(count($ubicaciones) != 0)
+    @if(count($tipos) != 0)
         <table class="table table-striped table-dark table-hover">
             <thead>
             <tr>
@@ -10,11 +10,11 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($ubicaciones as $key=>$ubicacion)
+            @foreach ($tipos as $key=>$tipo)
             <tr>
                 <td>{{$key+1}}</td>
-                <td>{{$ubicacion->nombre}}</td>
-                <td>{{$ubicacion->descripcion}}</td>
+                <td>{{$tipo->nombre}}</td>
+                <td>{{$tipo->descripcion}}</td>
                 <td>
                     <button 
                     type="button" 
@@ -22,14 +22,14 @@
                     data-toggle="modal" data-target="#DeleteModal{{$key}}"
                     >Eliminar
                     </button>
-                    <a href="/ubicaciones/{{$ubicacion->id}}/edit" 
+                    <a href="/tipo_patron/{{$tipo->id}}/edit" 
                     type="button" 
                     class="btn btn-secondary btn-sm mb-1"                        
                     >Editar
                     </a>     
                 </td>   
             </tr>
-            @include('calidad.ubi.modals.deleteUbicacionesModal')
+            @include('calidad.tipoPatron.modals.deleteTipoPatronModal') 
             @endforeach
             </tbody>
         </table>

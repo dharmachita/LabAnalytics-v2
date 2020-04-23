@@ -8,13 +8,13 @@
             <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
-                    Editar Ubicación
+                    Editar Tipo de Patrón
                 </h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/ubicaciones">Ubicaciones</a></li>
+                <li class="breadcrumb-item"><a href="/tipo_patron">Tipo de Patron</a></li>
                 <li class="breadcrumb-item active">Editar</li>
                 </ol>
             </div>
@@ -30,13 +30,13 @@
                         <b>Formulario de Edición</b>
                     </div>
                     <div class="card-body">
-                        <form action="/ubicaciones/{{$ubicacion->id}}" method="POST" role="form">
+                        <form action="/tipo_patron/{{$tipo->id}}" method="POST" role="form">
                         {{ method_field('PUT') }}
                         {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" 
-                                class="form-control {{ $errors->has('nombre') ? 'is-invalid' : '' }}" value="{{ $ubicacion->nombre }}" 
+                                class="form-control {{ $errors->has('nombre') ? 'is-invalid' : '' }}" value="{{ $tipo->nombre }}" 
                                 name="nombre">
                                 @if ($errors->has('nombre'))
                                     <div class="invalid-feedback">
@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label for="descripcion">Descripción Breve</label>
                                 <input type="text" 
-                                class="form-control {{ $errors->has('descripcion') ? 'is-invalid' : '' }}" value="{{ $ubicacion->descripcion }}" 
+                                class="form-control {{ $errors->has('descripcion') ? 'is-invalid' : '' }}" value="{{ $tipo->descripcion }}" 
                                 name="descripcion">
                                 @if ($errors->has('descripcion'))
                                     <div class="invalid-feedback">
@@ -55,7 +55,7 @@
                                     </div>
                                 @endif 
                             </div>   
-                            <a href="/ubicaciones"" class="btn btn-danger">Volver</a>          
+                            <a href="/tipo_patron"" class="btn btn-danger">Volver</a>          
                             <button type="submit" class="btn btn-primary">Modificar</button>   
                         </form>   
                     </div>
