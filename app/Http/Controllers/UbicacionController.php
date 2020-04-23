@@ -38,7 +38,7 @@ class UbicacionController extends Controller
         $ubicacion->nombre = $request->nombre;
         $ubicacion->descripcion = $request->descripcion;
         $ubicacion->save();
-        return redirect('/ubicaciones');
+        return redirect('/ubicaciones')->with('edition','La ubicación se editó correctamente');
     }
     
     //Crear
@@ -53,5 +53,11 @@ class UbicacionController extends Controller
         $ubicacion->descripcion = $request->descripcion;
         $ubicacion->save();
         return redirect('/ubicaciones');
+    }
+
+    //Mostrar formulario de edicion
+    public function edit($id){
+        $ubicacion = Ubicacion::find($id);  
+        return view('calidad.ubi.editarUbicacion',['ubicacion'=>$ubicacion]);
     }
 }

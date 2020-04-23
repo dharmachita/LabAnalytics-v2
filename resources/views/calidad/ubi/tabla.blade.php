@@ -22,12 +22,11 @@
                     data-toggle="modal" data-target="#DeleteModal{{$key}}"
                     >Eliminar
                     </button>
-                    <button 
+                    <a href="/ubicaciones/{{$ubicacion->id}}/edit" 
                     type="button" 
-                    class="btn btn-secondary btn-sm mb-1"
-                    data-toggle="modal" data-target="#UpdateModal{{$key}}"                        
+                    class="btn btn-secondary btn-sm mb-1"                        
                     >Editar
-                    </button>     
+                    </a>     
                 </td>   
             </tr>
             @include('calidad.ubi.modals.deleteUbicacionesModal')
