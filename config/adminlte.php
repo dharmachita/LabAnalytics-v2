@@ -228,7 +228,19 @@ return [
         [
             'text'    => 'Listar Instrumentos',
             'icon'    => 'fa fa-list-alt',
-            'url'  => '#',
+            'submenu' => 
+            [
+                [
+                    'text' => 'Ver Equipos',
+                    'url'  => 'equipos',
+                    'icon_color'=>'red',
+                ],
+                [
+                    'text' => 'Ver Patrones',
+                    'url'  => 'patrones',
+                    'icon_color'=>'yellow',
+                ],
+            ],
         ],
         [
             'text'    => 'Calibraciones',

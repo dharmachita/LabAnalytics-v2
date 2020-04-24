@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TipoPatron;
+use Throwable;
 
 class TipoPatronController extends Controller
 {
@@ -14,49 +15,79 @@ class TipoPatronController extends Controller
 
     public function index()
     {
-        $tipos = TipoPatron::all();
-        return view('calidad\tipoPatron\tipoPatrones',['tipos'=>$tipos]);
+        try {
+            $tipos = TipoPatron::all();
+            return view('calidad\tipoPatron\tipoPatrones',['tipos'=>$tipos]);
+        } catch (Throwable $e) {
+            $mensaje='Se ha producido un error al cargar el recurso solicitado';
+            return redirect('/home')->with('error',$mensaje);
+        } 
     }
 
         //Delete
         public function destroy($id)
         {
-            $tipo = TipoPatron::find($id);
-            $tipo->delete();
-            return redirect('/tipo_patron')->with('success',$tipo->nombre);   
+            try {
+                $tipo = TipoPatron::findOrFail($id);
+                $tipo->delete();
+                return redirect('/tipo_patron')->with('success',$tipo->nombre); 
+            } catch (Throwable $e) {
+                if($e->getCode()==23000){
+                    $mensaje='Error al intentar borrar el tipo de patrón solicitado. Existen patrones asociados.';
+                    return redirect('/tipo_patron')->with('error',$mensaje);  
+                }else{
+                    $mensaje='Se ha producido un error';
+                    return redirect('/tipo_patron')->with('error',$mensaje);
+                }   
+            }           
         }
     
         //Update
         public function update(Request $request, $id)
-        {      
-            $validatedData = $request->validate([
-                'nombre' => ['required'],
-                'descripcion' => ['required'],
-            ]);  
-            $tipo = TipoPatron::find($id);
-            $tipo->nombre = $request->nombre;
-            $tipo->descripcion = $request->descripcion;
-            $tipo->save();
-            return redirect('/tipo_patron')->with('edition','El tipo de patrón se editó correctamente');
+        {   
+            try{     
+                $validatedData = $request->validate([
+                    'nombre' => ['required'],
+                    'descripcion' => ['required'],
+                ]);  
+                $tipo = TipoPatron::findOrFail($id);
+                $tipo->nombre = $request->nombre;
+                $tipo->descripcion = $request->descripcion;
+                $tipo->save();
+                return redirect('/tipo_patron')->with('edition','El tipo de patrón se editó correctamente');
+            }catch (Throwable $e) { 
+                $mensaje='Se ha producido un error';
+                return redirect('/tipo_patron')->with('error',$mensaje);
+            } 
         }
         
         //Crear
         public function store(Request $request)
         {
-            $validatedData = $request->validate([
-                'nombre' => ['required'],
-                'descripcion' => ['required'],
-            ]);
-            $tipo = new TipoPatron();
-            $tipo->nombre = $request->nombre;
-            $tipo->descripcion = $request->descripcion;
-            $tipo->save();
-            return redirect('/tipo_patron');
+            try{
+                $validatedData = $request->validate([
+                    'nombre' => ['required'],
+                    'descripcion' => ['required'],
+                ]);
+                $tipo = new TipoPatron();
+                $tipo->nombre = $request->nombre;
+                $tipo->descripcion = $request->descripcion;
+                $tipo->save();
+                return redirect('/tipo_patron');
+            }catch (Throwable $e) { 
+                $mensaje='Se ha producido un error';
+                return redirect('/tipo_patron')->with('error',$mensaje);
+            }
         }
     
         //Mostrar formulario de edicion
         public function edit($id){
-            $tipo = TipoPatron::find($id);  
-            return view('calidad.tipoPatron.editarTipoPatron',['tipo'=>$tipo]);
+            try{
+                $tipo = TipoPatron::findOrFail($id);  
+                return view('calidad.tipoPatron.editarTipoPatron',['tipo'=>$tipo]);
+            }catch (Throwable $e) { 
+                $mensaje='Se ha producido un error al cargar el recurso solicitado';
+                return redirect('/tipo_patron')->with('error',$mensaje);
+            }
         }
 }

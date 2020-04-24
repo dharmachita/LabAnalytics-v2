@@ -47,9 +47,22 @@ if ($options['verify'] ?? false) {
 //UBICACIONES
 Route::resource('/ubicaciones', 'UbicacionController')->middleware('calidad');
 
-//UBICACIONES
+//TIPO DE EQUIPO
 Route::resource('/tipo_equipo', 'TipoEquipoController')->middleware('calidad');
 
-//UBICACIONES
+//TIPO DE PATRON
 Route::resource('/tipo_patron', 'TipoPatronController')->middleware('calidad');
+
+//LISTA DE EQUIPOS
+Route::get('/equipos', 'EquipoController@index');
+
+//LISTA DE PATRONES
+Route::get('/patrones', 'PatronController@index');
+
+//DETALLES DE EQUIPOS
+Route::get('/equipos/{equipo}', 'EquipoController@show');
+
+//DETALLES DE PATRONES
+Route::get('/patrones/{patron}', 'PatronController@show');
+
 
