@@ -139,6 +139,27 @@ return [
         'nombreUsuario' => [
             'required' => 'Por favor ingrese Nombre de Usuario.',
         ],
+        'emp' => [
+            'numeric' => 'El error máximo permisible debe ser un número.',
+        ],
+        'rango' => [
+            'numeric' => 'El rango debe ser un número.',
+        ],
+        'apreciacion' => [
+            'numeric' => 'La apreciación debe ser un número.',
+        ],
+        'fecha_alta' => [
+            'required' => 'Por favor ingrese la fecha de alta del equipo.',
+        ],
+        'imagen' => [
+            'max' => 'El tamaño de la imagen deber ser menor a :max kilobytes.',
+        ],
+        'tipo_equipo_id' => [
+            'required' => 'Por favor seleccione Tipo de Equipo.',
+        ],
+        'ubicacion_id' => [
+            'required' => 'Por favor seleccione Ubicación.',
+        ],
     ],
 
     /*

@@ -215,12 +215,12 @@ return [
             [
                 [
                     'text' => 'Alta de Equipo',
-                    'url'  => '#',
+                    'url'  => 'equipos/nuevo',
                     'icon_color'=>'red',
                 ],
                 [
                     'text' => 'Alta de Patrón',
-                    'url'  => '#',
+                    'url'  => 'patrones/nuevo',
                     'icon_color'=>'yellow',
                 ],
             ],

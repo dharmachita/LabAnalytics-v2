@@ -76,7 +76,7 @@ class UbicacionController extends Controller
             $ubicacion->nombre = $request->nombre;
             $ubicacion->descripcion = $request->descripcion;
             $ubicacion->save();
-            return redirect('/ubicaciones');
+            return redirect('/ubicaciones')->with('created','Ubicación creada correctamente');
         }catch (Throwable $e) { 
             $mensaje='Se ha producido un error';
             return redirect('/ubicaciones')->with('error',$mensaje);

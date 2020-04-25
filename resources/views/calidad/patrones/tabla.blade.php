@@ -1,7 +1,12 @@
 <div class="container">
     
-    @include('search_form')
-    
+    <div class="row">
+        <div class="col-md-8 mb-2">
+            <a href="patrones/nuevo" class="btn btn-success"><i class="fas fa-plus-circle pr-1"></i>Crear</a> 
+        </div>
+        @include('search_form')  
+    </div>
+
     @if(count($patrones) != 0)
         <table class="table table-striped table-dark table-hover">
             <thead>
@@ -23,7 +28,7 @@
                 <td>{{$patron->unidad_medida}}</td>
                 <td>{{$patron->tipo}}</td>
                 <td>
-                    <a href="/patrones/{{$patron->id}}" 
+                    <a href="/patrones/detalle/{{$patron->id}}" 
                     type="button" 
                     class="btn btn-primary btn-sm mb-1"                        
                     >Ver Detalle...

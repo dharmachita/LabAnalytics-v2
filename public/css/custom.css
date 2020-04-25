@@ -1,5 +1,5 @@
 .dan-modal{
-    background-color: rgb(177, 4, 4);
+    background-color: rgb(167, 28, 28);
     color: whitesmoke;
 }
 
@@ -13,4 +13,14 @@
 
 .hide-row{
     display:none;
+}
+
+.subform-card{
+    background-color: rgb(68, 65, 65);
+    color:white;
+    font-weight: bold;
+}
+
+.float-btn{
+    float:right;
 }

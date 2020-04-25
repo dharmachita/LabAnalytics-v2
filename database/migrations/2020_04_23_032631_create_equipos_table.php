@@ -21,7 +21,7 @@ class CreateEquiposTable extends Migration
             $table->boolean('es_calibrable');
             $table->float('emp');
             $table->float('apreciacion');
-            $table->float('rango');
+            $table->string('rango');
             $table->unsignedBigInteger('tipo_equipo_id');
             $table->unsignedBigInteger('ubicacion_id');
             $table->unsignedBigInteger('instrumento_id');

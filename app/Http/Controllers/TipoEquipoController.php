@@ -73,7 +73,7 @@ class TipoEquipoController extends Controller
                 $tipo->nombre = $request->nombre;
                 $tipo->uso = $request->uso;
                 $tipo->save();
-                return redirect('/tipo_equipo');
+                return redirect('/tipo_equipo')->with('created','Tipo de Equipo creado correctamente');
             }catch (Throwable $e) { 
                 $mensaje='Se ha producido un error';
                 return redirect('/tipo_equipo')->with('error',$mensaje);

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Equipo;
+use App\TipoEquipo;
+use App\Ubicacion;
 use Illuminate\Http\Request;
 use App\Instrumento;
 use Throwable;
 use Illuminate\Support\Facades\DB;
+use Random;
 
 
 class EquipoController extends Controller
@@ -38,6 +41,13 @@ class EquipoController extends Controller
         }    
     }
 
+    public function indexNuevo()
+    {
+        $ubicaciones=Ubicacion::all();
+        $tipoEquipos=TipoEquipo::all();
+        return view('calidad.equipos.nuevo',['tipoEquipos'=>$tipoEquipos,'ubicaciones'=>$ubicaciones]);
+    }   
+
 
     /**
      * Show the form for creating a new resource.
@@ -57,7 +67,81 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $validatedData = $request->validate([
+                'fecha_alta' => ['required'],
+                'marca' => ['required'],
+                'serie' => ['required'],
+                'modelo' => ['required'],
+                'ubicacion_id' => ['required'],
+                'tipo_equipo_id' => ['required'],
+                'rango' => ['nullable'],
+                'emp' => ['nullable','numeric'],
+                'apreciacion' => ['nullable','numeric'],
+                'imagen' => ['nullable','max:5000'],
+            ]);
+            $dataInstrumento = [
+                'fecha_alta' => $request->fecha_alta,
+                'marca' => $request->marca,
+                'serie' => $request->serie,
+            ];
+            $instrumento = Instrumento::create($dataInstrumento);
+            
+            if($request->es_calibrable){
+                $request->es_calibrable=1;    
+            }else{
+                $request->es_calibrable=0;
+            }
+            
+            
+            //Buscar en BBDD último id de instrumento y agregar 1 para formar Nro de Equipo
+            $lastNro = DB::table('equipos')->max('id');
+            if($lastNro!=null){
+                $lastPlusOne = $lastNro + 1;
+            }else{
+                $lastPlusOne = 1;
+            }
+            
+            if(($lastPlusOne/10)<1){
+                $nroEquipo = '211-00'.$lastPlusOne;    
+            }else if(($lastPlusOne)/10<10){
+                $nroEquipo = '211-0'.$lastPlusOne;
+            }else{
+                $nroEquipo = '211-'.$lastPlusOne;
+            }
+
+            //Tratamiento de imagen
+            if($request->file()!=null){
+                $archivo = $request->file('imagen');
+                $nombreImagen = $nroEquipo . 'imagen' . "." . $archivo->getClientOriginalExtension();
+                $archivo->move('img\equipos',$nombreImagen);
+            }else{
+                $nombreImagen=null;
+            }
+            
+            $dataEquipo = [
+                'nro_equipo' => $nroEquipo,
+                'modelo' => $request->modelo,
+                'imagen' => $nombreImagen,
+                'es_calibrable' => $request->es_calibrable,
+                'emp' => $request->emp,
+                'apreciacion' => $request->apreciacion,
+                'rango'=> $request->rango,
+                'tipo_equipo_id' => $request->tipo_equipo_id,
+                'ubicacion_id' => $request->ubicacion_id,
+                'instrumento_id' => $instrumento->id,
+            ];
+            $equipo = Equipo::create($dataEquipo);
+            $mensaje=$nroEquipo;
+            return redirect('/equipos')->with('success',$mensaje);
+        }catch (Throwable $e){
+            if($e->getMessage()=="The given data was invalid."){
+                return back()->withErrors($e->validator);
+            }else{
+                $mensaje='Se ha producido un error al crear el equipo.';
+                return redirect('/equipos')->with('error',$mensaje);
+            }
+        }
     }
 
     /**

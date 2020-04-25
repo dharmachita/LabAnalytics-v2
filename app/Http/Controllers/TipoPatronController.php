@@ -73,7 +73,7 @@ class TipoPatronController extends Controller
                 $tipo->nombre = $request->nombre;
                 $tipo->descripcion = $request->descripcion;
                 $tipo->save();
-                return redirect('/tipo_patron');
+                return redirect('/tipo_patron')->with('created','Tipo de Patrón creado correctamente');
             }catch (Throwable $e) { 
                 $mensaje='Se ha producido un error';
                 return redirect('/tipo_patron')->with('error',$mensaje);

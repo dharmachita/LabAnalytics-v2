@@ -56,13 +56,16 @@ Route::resource('/tipo_patron', 'TipoPatronController')->middleware('calidad');
 //LISTA DE EQUIPOS
 Route::get('/equipos', 'EquipoController@index');
 
+
 //LISTA DE PATRONES
 Route::get('/patrones', 'PatronController@index');
 
 //DETALLES DE EQUIPOS
-Route::get('/equipos/{equipo}', 'EquipoController@show');
+Route::get('/equipos/detalle/{equipo}', 'EquipoController@show');
 
 //DETALLES DE PATRONES
-Route::get('/patrones/{patron}', 'PatronController@show');
+Route::get('/patrones/detalle/{patron}', 'PatronController@show');
 
-
+//CREAR EQUIPOS --> USAR MIDDELWARE
+Route::get('/equipos/nuevo', 'EquipoController@indexNuevo');
+Route::post('/equipos/nuevo', 'EquipoController@store');
