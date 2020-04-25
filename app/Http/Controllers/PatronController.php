@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Patron;
+use App\Instrumento;
 use Illuminate\Http\Request;
 use Throwable;
 use Illuminate\Support\Facades\DB;
+use App\TipoPatron;
 
 class PatronController extends Controller
 {
@@ -34,6 +36,11 @@ class PatronController extends Controller
         }    
     }
 
+    public function indexNuevo()
+    {
+        $tipoPatrones=TipoPatron::all();
+        return view('calidad.patrones.nuevo',['tipoPatrones'=>$tipoPatrones]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -52,7 +59,41 @@ class PatronController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $validatedData = $request->validate([
+                'fecha_alta' => ['required'],
+                'marca' => ['required'],
+                'serie' => ['required'],
+                'valor_nominal' => ['required','numeric'],
+                'unidad_medida' => ['required'],
+                'tipo_patron_id' => ['required'],
+            ]);
+            $dataInstrumento = [
+                'fecha_alta' => $request->fecha_alta,
+                'marca' => $request->marca,
+                'serie' => $request->serie,
+            ];
+            $instrumento = Instrumento::create($dataInstrumento);
+            $id_patron = $request->serie . "-" . $request->valor_nominal;           
+
+            $dataPatron = [
+                'id_patron' => $id_patron,
+                'valor_nominal' => $request->valor_nominal,
+                'unidad_medida' => $request->unidad_medida,
+                'tipo_patron_id' => $request->tipo_patron_id,
+                'instrumento_id' => $instrumento->id,
+            ];
+            $equipo = Patron::create($dataPatron);
+            $mensaje=$id_patron;
+            return redirect('/patrones')->with('success',$mensaje);
+        }catch (Throwable $e){
+            if($e->getMessage()=="The given data was invalid."){
+                return back()->withErrors($e->validator);
+            }else{
+                $mensaje='Se ha producido un error al crear el patrón.';
+                return redirect('/patrones')->with('error',$mensaje);
+            }
+        }
     }
 
     /**
@@ -68,6 +109,8 @@ class PatronController extends Controller
                 ->join('patrons', 'instrumentos.id', '=', 'patrons.instrumento_id')
                 ->join('tipo_patrons', 'tipo_patrons.id', '=', 'patrons.tipo_patron_id')
                 ->select('patrons.valor_nominal',
+                        'patrons.id as patron_id',
+                        'patrons.id_patron as identificador',
                         'instrumentos.id',
                         'instrumentos.marca',
                         'patrons.unidad_medida',
@@ -78,7 +121,7 @@ class PatronController extends Controller
                 $check = Patron::where('instrumento_id', '=', $id)->firstOrFail();
             return view('calidad.patrones.detallePatron',['patron'=>$patron]);
         }catch(Throwable $e){
-            $mensaje='No se puede mostrar el equipo solicitado';
+            $mensaje='No se puede mostrar el patrón solicitado';
             return redirect('/patrones')->with('error',$mensaje);
         }  
     }

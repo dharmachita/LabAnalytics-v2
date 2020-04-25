@@ -69,3 +69,7 @@ Route::get('/patrones/detalle/{patron}', 'PatronController@show');
 //CREAR EQUIPOS --> USAR MIDDELWARE
 Route::get('/equipos/nuevo', 'EquipoController@indexNuevo');
 Route::post('/equipos/nuevo', 'EquipoController@store');
+
+//CREAR PATRONES --> USAR MIDDELWARE
+Route::get('/patrones/nuevo', 'PatronController@indexNuevo');
+Route::post('/patrones/nuevo', 'PatronController@store');
