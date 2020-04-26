@@ -229,5 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+    
+    'date_format' => 'd-m-Y',
 
 ];

@@ -10,6 +10,7 @@ use App\Instrumento;
 use Throwable;
 use Illuminate\Support\Facades\DB;
 use Random;
+use Carbon\Carbon;
 
 
 class EquipoController extends Controller
@@ -158,16 +159,34 @@ class EquipoController extends Controller
                 ->join('tipo_equipos', 'tipo_equipos.id', '=', 'equipos.tipo_equipo_id')
                 ->join('ubicacions', 'ubicacions.id', '=', 'equipos.ubicacion_id')
                 ->select('equipos.nro_equipo',
+                        'instrumentos.fecha_alta',
                         'instrumentos.id as id',
                         'equipos.id as equipo_id',
                         'instrumentos.marca',
                         'equipos.modelo',
                         'instrumentos.serie',
                         'tipo_equipos.nombre as tipo',
+                        'equipos.imagen',
+                        'equipos.rango',
+                        'equipos.emp',
+                        'equipos.apreciacion',
                         'ubicacions.nombre as ubicacion')
                 ->where('instrumentos.id', '=' ,$id)      
                 ->first();
+                if(!isset($equipo->imagen)){
+                    $equipo->imagen='blank.png';
+                }
+                if(!isset($equipo->emp)){
+                    $equipo->emp='-';
+                }
+                if(!isset($equipo->rango)){
+                    $equipo->rango='-';
+                }
+                if(!isset($equipo->apreciacion)){
+                    $equipo->apreciacion='-';
+                }
                 $check = Equipo::where('instrumento_id', '=', $id)->firstOrFail();
+                $equipo->fecha_alta = Carbon::parse($equipo->fecha_alta);
                 return view('calidad.equipos.detalleEquipo',['equipo'=>$equipo]);
         }catch(Throwable $e){
             $mensaje='No se puede mostrar el equipo solicitado';

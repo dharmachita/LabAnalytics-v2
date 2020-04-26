@@ -8,7 +8,7 @@
     <div class="row mb-2">
         <div class="col-sm-6">
             <h1 class="m-0 text-dark">
-                <strong>EQUIPO: </strong>{{$equipo->nro_equipo}}
+                <strong>EQUIPO: </strong>{{$equipo->nro_equipo}} - <em>{{$equipo->tipo}}</em>
             </h1>
         </div>
         <div class="col-sm-6">
@@ -24,7 +24,50 @@
 
 @section('content')
 <div class="container mt-2">
-    DETALLE DE EQUIPO 1
+    <div class="row">
+        <div class="col-md-12 col-sm-6 mb-2">
+            <a href="#" class="btn btn-primary">Editar</a>
+            <a href="#" class="btn btn-danger">Eliminar</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header subform-card">
+            DATOS GENERALES   
+        </div>
+        <div class="card-body">
+            @include('calidad.equipos.detalles.generales')
+        </div>
+    </div>
+</div>
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header subform-card">
+            CALIBRACIONES   
+        </div>
+        <div class="card-body">
+            @include('calidad.equipos.detalles.calibraciones')
+        </div>
+    </div>
+</div>
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header subform-card">
+            MOVIMIENTOS   
+        </div>
+        <div class="card-body">
+            @include('calidad.equipos.detalles.movimientos')
+        </div>
+    </div>
+</div>
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header subform-card">
+            REPARACIONES   
+        </div>
+        <div class="card-body">
+            @include('calidad.equipos.detalles.reparaciones')
+        </div>
+    </div>
 </div>
 @endsection
 

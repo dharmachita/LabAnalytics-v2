@@ -15,4 +15,8 @@ class Patron extends Model
     ];
     
     public $timestamps = false;  
+
+  
+
+    
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Throwable;
 use Illuminate\Support\Facades\DB;
 use App\TipoPatron;
+use Carbon\Carbon;
 
 class PatronController extends Controller
 {
@@ -111,6 +112,7 @@ class PatronController extends Controller
                 ->select('patrons.valor_nominal',
                         'patrons.id as patron_id',
                         'patrons.id_patron as identificador',
+                        'instrumentos.fecha_alta',
                         'instrumentos.id',
                         'instrumentos.marca',
                         'patrons.unidad_medida',
@@ -119,6 +121,7 @@ class PatronController extends Controller
                 ->where('instrumentos.id', '=' ,$id)      
                 ->first();
                 $check = Patron::where('instrumento_id', '=', $id)->firstOrFail();
+                $patron->fecha_alta = Carbon::parse($patron->fecha_alta);
             return view('calidad.patrones.detallePatron',['patron'=>$patron]);
         }catch(Throwable $e){
             $mensaje='No se puede mostrar el patrón solicitado';

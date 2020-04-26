@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Instrumento extends Model
 {
@@ -12,5 +13,7 @@ class Instrumento extends Model
         'serie',
         ];
         
-    public $timestamps = false;    
+    public $timestamps = false;   
+    
+    
 }
