@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Patron;
 use App\Instrumento;
+use App\Movimiento;
 use Illuminate\Http\Request;
 use Throwable;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,7 @@ class PatronController extends Controller
                         'patrons.unidad_medida',
                         'instrumentos.serie',
                         'tipo_patrons.nombre as tipo')
+                ->orderBy('patrons.id')
                 ->get();   
             return view('calidad.patrones.patrones',['patrones'=>$patrones]);
         }catch(Throwable $e){
@@ -85,6 +87,12 @@ class PatronController extends Controller
                 'instrumento_id' => $instrumento->id,
             ];
             $equipo = Patron::create($dataPatron);
+            $dataMovimiento=[
+                'fecha_movimiento'=>$dataInstrumento['fecha_alta'],
+                'descripcion'=>'Se realiza el alta del patrón',
+                'instrumento_id'=>$instrumento->id,
+            ];
+            $movimiento = Movimiento::create($dataMovimiento);
             $mensaje=$id_patron;
             return redirect('/patrones')->with('success',$mensaje);
         }catch (Throwable $e){
@@ -106,6 +114,7 @@ class PatronController extends Controller
     public function show($id)
     {
         try{
+            //DATOS GENERALES
             $patron = DB::table('instrumentos')
                 ->join('patrons', 'instrumentos.id', '=', 'patrons.instrumento_id')
                 ->join('tipo_patrons', 'tipo_patrons.id', '=', 'patrons.tipo_patron_id')
@@ -122,7 +131,28 @@ class PatronController extends Controller
                 ->first();
                 $check = Patron::where('instrumento_id', '=', $id)->firstOrFail();
                 $patron->fecha_alta = Carbon::parse($patron->fecha_alta);
-            return view('calidad.patrones.detallePatron',['patron'=>$patron]);
+
+                //MOVIMIENTOS
+                $movimientos=DB::table('movimientos')
+                    ->where('instrumento_id','=',$id)
+                    ->orderBy('fecha_movimiento','desc')
+                    ->limit('5')
+                    ->get();
+                
+                $cantidadMov=DB::table('movimientos')
+                    ->where('instrumento_id','=',$id)
+                    ->count(); 
+
+                foreach($movimientos as $movimiento){
+                    $movimiento->fecha_movimiento = Carbon::parse($movimiento->fecha_movimiento);
+                }    
+
+            return view('calidad.patrones.detallePatron',
+            [
+                'patron'=>$patron,
+                'movimientos'=>$movimientos,
+                'cantidadMov' =>$cantidadMov,
+            ]);
         }catch(Throwable $e){
             $mensaje='No se puede mostrar el patrón solicitado';
             return redirect('/patrones')->with('error',$mensaje);

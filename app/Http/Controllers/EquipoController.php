@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Equipo;
 use App\TipoEquipo;
 use App\Ubicacion;
+use App\Movimiento;
 use Illuminate\Http\Request;
 use App\Instrumento;
 use Throwable;
@@ -34,6 +35,7 @@ class EquipoController extends Controller
                         'instrumentos.serie',
                         'tipo_equipos.nombre as tipo',
                         'ubicacions.nombre as ubicacion')
+                ->orderBy('equipos.id')
                 ->get();
             return view('calidad.equipos.equipos',['equipos'=>$equipos]);
         }catch(Throwable $e){
@@ -133,13 +135,19 @@ class EquipoController extends Controller
                 'instrumento_id' => $instrumento->id,
             ];
             $equipo = Equipo::create($dataEquipo);
+            $dataMovimiento=[
+                'fecha_movimiento'=>$dataInstrumento['fecha_alta'],
+                'descripcion'=>'Se realiza el alta del equipo',
+                'instrumento_id'=>$instrumento->id,
+            ];
+            $movimiento = Movimiento::create($dataMovimiento);
             $mensaje=$nroEquipo;
             return redirect('/equipos')->with('success',$mensaje);
         }catch (Throwable $e){
             if($e->getMessage()=="The given data was invalid."){
                 return back()->withErrors($e->validator);
             }else{
-                $mensaje='Se ha producido un error al crear el equipo.';
+               $mensaje='Se ha producido un error al crear el equipo.';
                 return redirect('/equipos')->with('error',$mensaje);
             }
         }
@@ -154,6 +162,7 @@ class EquipoController extends Controller
     public function show($id)
     {
         try{
+            //DATOS GENERALES
             $equipo = DB::table('instrumentos')
                 ->join('equipos', 'instrumentos.id', '=', 'equipos.instrumento_id')
                 ->join('tipo_equipos', 'tipo_equipos.id', '=', 'equipos.tipo_equipo_id')
@@ -187,7 +196,28 @@ class EquipoController extends Controller
                 }
                 $check = Equipo::where('instrumento_id', '=', $id)->firstOrFail();
                 $equipo->fecha_alta = Carbon::parse($equipo->fecha_alta);
-                return view('calidad.equipos.detalleEquipo',['equipo'=>$equipo]);
+                
+                //MOVIMIENTOS
+                $movimientos=DB::table('movimientos')
+                    ->where('instrumento_id','=',$id)
+                    ->orderBy('fecha_movimiento','desc')
+                    ->limit('5')
+                    ->get();
+                
+                $cantidadMov=DB::table('movimientos')
+                    ->where('instrumento_id','=',$id)
+                    ->count();   
+                
+                foreach($movimientos as $movimiento){
+                    $movimiento->fecha_movimiento = Carbon::parse($movimiento->fecha_movimiento);
+                }    
+                
+                return view('calidad.equipos.detalleEquipo',
+                    [
+                    'equipo'=>$equipo,
+                    'movimientos'=>$movimientos,
+                    'cantidadMov'=>$cantidadMov
+                    ]);
         }catch(Throwable $e){
             $mensaje='No se puede mostrar el equipo solicitado';
             return redirect('/equipos')->with('error',$mensaje);

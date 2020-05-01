@@ -56,7 +56,6 @@ Route::resource('/tipo_patron', 'TipoPatronController')->middleware('calidad');
 //LISTA DE EQUIPOS
 Route::get('/equipos', 'EquipoController@index');
 
-
 //LISTA DE PATRONES
 Route::get('/patrones', 'PatronController@index');
 
@@ -67,9 +66,12 @@ Route::get('/equipos/detalle/{equipo}', 'EquipoController@show');
 Route::get('/patrones/detalle/{patron}', 'PatronController@show');
 
 //CREAR EQUIPOS --> USAR MIDDELWARE
-Route::get('/equipos/nuevo', 'EquipoController@indexNuevo');
-Route::post('/equipos/nuevo', 'EquipoController@store');
+Route::get('/equipos/nuevo', 'EquipoController@indexNuevo')->middleware('calidad');
+Route::post('/equipos/nuevo', 'EquipoController@store')->middleware('calidad');
 
 //CREAR PATRONES --> USAR MIDDELWARE
-Route::get('/patrones/nuevo', 'PatronController@indexNuevo');
-Route::post('/patrones/nuevo', 'PatronController@store');
+Route::get('/patrones/nuevo', 'PatronController@indexNuevo')->middleware('calidad');
+Route::post('/patrones/nuevo', 'PatronController@store')->middleware('calidad');
+
+//VISUALIZAR MOVIMIENTO
+Route::get('/movimientos','MovimientoController@index');

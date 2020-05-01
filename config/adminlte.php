@@ -293,7 +293,7 @@ return [
                 ],
                 [
                     'text' => 'Ver Historial',
-                    'url'  => '#',
+                    'url'  => 'movimientos',
                     'icon_color'=>'yellow',
                 ],
             ],

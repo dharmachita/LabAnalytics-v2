@@ -55,7 +55,7 @@
             MOVIMIENTOS   
         </div>
         <div class="card-body">
-            @include('calidad.equipos.detalles.movimientos')
+            @include('calidad.movimientos.resumen')
         </div>
     </div>
 </div>

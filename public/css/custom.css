@@ -21,6 +21,7 @@
     font-weight: bold;
 }
 
-.float-btn{
+.float-btn .left-row{
     float:right;
+    text-align: right;
 }
