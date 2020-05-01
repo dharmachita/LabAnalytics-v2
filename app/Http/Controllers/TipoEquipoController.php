@@ -17,7 +17,7 @@ class TipoEquipoController extends Controller
     {
         try {
             $tipos = TipoEquipo::all();
-            return view('calidad\tipoEquipo\tipoEquipos',['tipos'=>$tipos]);
+            return view('calidad.tipoEquipo.tipoEquipos',['tipos'=>$tipos]);
         } catch (Throwable $e) {
             $mensaje='Se ha producido un error al cargar el recurso solicitado';
             return redirect('/home')->with('error',$mensaje);

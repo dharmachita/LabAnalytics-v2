@@ -17,7 +17,7 @@ class TipoPatronController extends Controller
     {
         try {
             $tipos = TipoPatron::all();
-            return view('calidad\tipoPatron\tipoPatrones',['tipos'=>$tipos]);
+            return view('calidad.tipoPatron.tipoPatrones',['tipos'=>$tipos]);
         } catch (Throwable $e) {
             $mensaje='Se ha producido un error al cargar el recurso solicitado';
             return redirect('/home')->with('error',$mensaje);

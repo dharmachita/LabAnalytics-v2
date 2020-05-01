@@ -19,7 +19,7 @@ class UbicacionController extends Controller
     {
         try {
             $ubicaciones = Ubicacion::all();
-            return view('calidad\ubi\ubicaciones',['ubicaciones'=>$ubicaciones]);
+            return view('calidad.ubi.ubicaciones',['ubicaciones'=>$ubicaciones]);
         } catch (Throwable $e) {
             $mensaje='Se ha producido un error al cargar el recurso solicitado';
             return redirect('/home')->with('error',$mensaje);
