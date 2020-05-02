@@ -56,8 +56,12 @@ class TipoPatronController extends Controller
                 $tipo->save();
                 return redirect('/tipo_patron')->with('edition','El tipo de patrón se editó correctamente');
             }catch (Throwable $e) { 
-                $mensaje='Se ha producido un error';
-                return redirect('/tipo_patron')->with('error',$mensaje);
+                if($e->getMessage()=="The given data was invalid."){
+                    return back()->withErrors($e->validator);
+                }else{
+                   $mensaje='Se ha producido un error al editar el tipo de patrón.';
+                    return redirect('/tipo_patron')->with('error',$mensaje);
+                }
             } 
         }
         

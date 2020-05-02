@@ -43,7 +43,10 @@ if ($options['verify'] ?? false) {
     Route::emailVerification();
 }
 
-//Rutas de la aplicación
+/**********************************************************************
+                    CRUD - UBICACIONES / TE / TP
+**********************************************************************/
+
 //UBICACIONES
 Route::resource('/ubicaciones', 'UbicacionController')->middleware('calidad');
 
@@ -53,25 +56,70 @@ Route::resource('/tipo_equipo', 'TipoEquipoController')->middleware('calidad');
 //TIPO DE PATRON
 Route::resource('/tipo_patron', 'TipoPatronController')->middleware('calidad');
 
-//LISTA DE EQUIPOS
-Route::get('/equipos', 'EquipoController@index');
 
-//LISTA DE PATRONES
-Route::get('/patrones', 'PatronController@index');
+/**********************************************************************
+                        CRUD - EQUIPOS
+**********************************************************************/
+
+//LISTA DE EQUIPOS
+Route::get('/equipos', 'EquipoController@index')->middleware('auth');
 
 //DETALLES DE EQUIPOS
-Route::get('/equipos/detalle/{equipo}', 'EquipoController@show');
+Route::get('/equipos/detalle/{equipo}', 'EquipoController@show')->middleware('auth');
 
-//DETALLES DE PATRONES
-Route::get('/patrones/detalle/{patron}', 'PatronController@show');
-
-//CREAR EQUIPOS --> USAR MIDDELWARE
+//CREAR EQUIPOS
 Route::get('/equipos/nuevo', 'EquipoController@indexNuevo')->middleware('calidad');
 Route::post('/equipos/nuevo', 'EquipoController@store')->middleware('calidad');
 
-//CREAR PATRONES --> USAR MIDDELWARE
+
+/**********************************************************************
+                        CRUD - PATRONES
+**********************************************************************/
+
+//LISTA DE PATRONES
+Route::get('/patrones', 'PatronController@index')->middleware('auth');
+
+//DETALLES DE PATRONES
+Route::get('/patrones/detalle/{patron}', 'PatronController@show')->middleware('auth');
+
+//CREAR PATRONES 
 Route::get('/patrones/nuevo', 'PatronController@indexNuevo')->middleware('calidad');
 Route::post('/patrones/nuevo', 'PatronController@store')->middleware('calidad');
 
+
+/**********************************************************************
+                        CRUD - MOVIMIENTOS
+**********************************************************************/
+
 //VISUALIZAR MOVIMIENTO
-Route::get('/movimientos','MovimientoController@index');
+Route::get('/movimientos','MovimientoController@index')->middleware('auth');
+
+//ELIMINAR MOVIMIENTOS
+Route::delete('/movimientos/{id}','MovimientoController@destroy')->middleware('calidad');
+
+//EDITAR MOVIMIENTO
+Route::get('/movimientos/{id}/edit','MovimientoController@edit')->middleware('calidad');
+Route::put('/movimientos/{id}','MovimientoController@update')->middleware('calidad');
+
+//CREAR MOVIMIENTO
+Route::get('/movimientos/nuevo', 'MovimientoController@indexNuevo')->middleware('calidad');
+Route::post('/movimientos/nuevo', 'MovimientoController@store')->middleware('calidad');
+
+
+/**********************************************************************
+                        CRUD - REPARACIONES
+**********************************************************************
+
+//VISUALIZAR REPARACIONES
+Route::get('/reparaciones','ReparacionesController@index')->middleware('auth');
+
+//ELIMINAR REPARACIONES
+Route::delete('/reparaciones/{id}','ReparacionesController@destroy')->middleware('calidad');
+
+//EDITAR REPARACIONES
+Route::put('/reparaciones/{id}','ReparacionesController@update')->middleware('calidad');
+
+//CREAR REPARACIONES
+Route::get('/reparaciones/nuevo', 'ReparacionesController@indexNuevo')->middleware('calidad');
+Route::post('/reparaciones/nuevo', 'ReparacionesController@store')->middleware('calidad');
+*/

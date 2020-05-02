@@ -59,8 +59,12 @@ class UbicacionController extends Controller
             $ubicacion->save();
             return redirect('/ubicaciones')->with('edition','La ubicación se editó correctamente');
         }catch (Throwable $e) { 
-            $mensaje='Se ha producido un error';
-            return redirect('/ubicaciones')->with('error',$mensaje);
+            if($e->getMessage()=="The given data was invalid."){
+                return back()->withErrors($e->validator);
+            }else{
+               $mensaje='Se ha producido un error al editar la ubicación.';
+                return redirect('/ubicaciones')->with('error',$mensaje);
+            }
         }
     }
     

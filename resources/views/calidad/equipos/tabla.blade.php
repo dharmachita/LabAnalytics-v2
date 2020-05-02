@@ -8,7 +8,7 @@
     
     
     @if(count($equipos) != 0)
-        <table class="table table-striped table-dark table-hover">
+        <table class="table table-striped table-dark table-hover tabla-escritorio">
             <thead>
             <tr>
                 <th scope="col text-center">#</th>
@@ -40,6 +40,34 @@
                 </td>   
             </tr>
              
+            @endforeach
+            </tbody>
+        </table>
+        <table class="table table-striped table-dark table-hover tabla-movil">
+            <thead>
+                <th scope="col text-center">Nro de Equipo <br> Tipo</th>
+                <th scope="col text-center">Marca <br> Modelo <br> Serie</th>
+                <th scope="col text-center">Ubicación</th>
+            </thead>
+            <tbody class="tablaBusqueda">
+            @foreach ($equipos as $key=>$equipo)
+            <tr>
+                <td>{{$equipo->nro_equipo}} <br> {{$equipo->tipo}}
+                    <a href="/equipos/detalle/{{$equipo->id}}" 
+                        type="button" 
+                        class="btn btn-primary btn-sm mb-1"                        
+                    >Ver Detalle...
+                    </a>
+                </td>
+                <td>
+                    <ul>
+                        <li>{{$equipo->marca}}</li>
+                        <li>{{$equipo->modelo}}</li>
+                        <li>{{$equipo->serie}}</li>
+                    </ul>
+                </td>
+                <td>{{$equipo->ubicacion}}</td> 
+            </tr>
             @endforeach
             </tbody>
         </table>

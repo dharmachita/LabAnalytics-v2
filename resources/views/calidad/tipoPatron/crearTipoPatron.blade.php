@@ -11,7 +11,7 @@
                     <b>Crear Tipo de Patrón</b>
                 </div>
                 <div class="card-body">
-                    <form action="/tipo_patron/" method="POST" role="form">
+                    <form action="/tipo_patron" method="POST" role="form">
                     {{ csrf_field() }}
                         <div class="form-group">
                             <label for="nombre">Nombre</label>

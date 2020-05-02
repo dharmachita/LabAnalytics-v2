@@ -8,7 +8,7 @@
     </div>
 
     @if(count($patrones) != 0)
-        <table class="table table-striped table-dark table-hover">
+        <table class="table table-striped table-dark table-hover tabla-escritorio">
             <thead>
             <tr>
                 <th scope="col text-center">#</th>
@@ -36,6 +36,29 @@
                 </td>   
             </tr>           
             @endforeach
+            </tbody>
+        </table>
+        <table class="table table-striped table-dark table-hover tabla-movil">
+            <thead>
+                <th scope="col text-center">Serie</th>
+                <th scope="col text-center">Valor Nominal</th>
+                <th scope="col text-center">Unidad de Medida</th>
+                <th scope="col text-center">Tipo Patrón</th>
+            </thead>
+            <tbody class="tablaBusqueda"> 
+                @foreach ($patrones as $key=>$patron)
+                <tr>
+                    <td>{{$patron->serie}} <p><a href="/patrones/detalle/{{$patron->id}}" 
+                        type="button" 
+                        class="btn btn-primary btn-sm mb-1"                        
+                        >Ver...
+                        </a> </p>
+                    </td>
+                    <td>{{$patron->valor_nominal}}</td>
+                    <td>{{$patron->unidad_medida}}</td>
+                    <td>{{$patron->tipo}}</td>  
+                </tr>           
+                @endforeach 
             </tbody>
         </table>
     @else

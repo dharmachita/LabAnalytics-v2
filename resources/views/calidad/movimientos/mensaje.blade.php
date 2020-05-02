@@ -1,6 +1,6 @@
 @if(session('success'))
     <div class="alert alert-info alert-dismissible fade show" role="alert">
-        Se creó un nuevo equipo con Nro: <strong>{{session('success')}}</strong>.
+        {{session('success')}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

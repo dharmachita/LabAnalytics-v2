@@ -25,3 +25,15 @@
     float:right;
     text-align: right;
 }
+
+@media screen and (max-width: 980px) {
+    .tabla-escritorio {
+    display: none;
+    }
+}
+
+@media screen and (min-width: 980px) {
+    .tabla-movil {
+    display: none;
+    }
+}

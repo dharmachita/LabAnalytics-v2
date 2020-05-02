@@ -56,8 +56,12 @@ class TipoEquipoController extends Controller
                 $tipo->save();
                 return redirect('/tipo_equipo')->with('edition','El tipo de equipo se editó correctamente');
             }catch (Throwable $e) { 
-                $mensaje='Se ha producido un error';
-                return redirect('/tipo_equipo')->with('error',$mensaje);
+                if($e->getMessage()=="The given data was invalid."){
+                    return back()->withErrors($e->validator);
+                }else{
+                   $mensaje='Se ha producido un error al editar el tipo de equipo.';
+                    return redirect('/tipo_equipo')->with('error',$mensaje);
+                }
             }        
         }
         

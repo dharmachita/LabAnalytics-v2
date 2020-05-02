@@ -11,7 +11,7 @@
                     <b>Crear Ubicación</b>
                 </div>
                 <div class="card-body">
-                    <form action="/ubicaciones/" method="POST" role="form">
+                    <form action="/ubicaciones" method="POST" role="form">
                     {{ csrf_field() }}
                         <div class="form-group">
                             <label for="nombre">Nombre</label>

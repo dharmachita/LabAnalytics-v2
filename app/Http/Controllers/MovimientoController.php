@@ -26,14 +26,16 @@ class MovimientoController extends Controller
                 ->join('equipos', 'instrumentos.id', '=', 'equipos.instrumento_id')
                 ->select('movimientos.fecha_movimiento',
                         'equipos.nro_equipo as instrumento',
-                        'movimientos.descripcion'
+                        'movimientos.descripcion',
+                        'movimientos.id'
             );
             $movimientosPatron = DB::table('movimientos')
             ->join('instrumentos', 'instrumentos.id', '=', 'movimientos.instrumento_id')
             ->join('patrons', 'instrumentos.id', '=', 'patrons.instrumento_id')
             ->select('movimientos.fecha_movimiento',
                     'patrons.id_patron as instrumento',
-                    'movimientos.descripcion'
+                    'movimientos.descripcion',
+                    'movimientos.id'
             );
             $movimientos = $movimientosPatron->union($movimientosEquipo)
             ->orderBy('fecha_movimiento','desc')        
@@ -45,6 +47,67 @@ class MovimientoController extends Controller
         }catch(Throwable $e){
             $mensaje='Se ha producido un error al cargar el recurso solicitado';
             return redirect('/home')->with('error',$mensaje);
+        }        
+    }
+
+    //Delete
+    public function destroy($id)
+    {
+        try {
+            $movimiento = Movimiento::findOrFail($id);
+            $movimiento->delete();
+            $mensaje='El evento se eliminó satisfactoriamente';
+            return redirect('/movimientos')->with('delete',$mensaje);
+        } catch (Throwable $e) {
+            $mensaje='Se ha producido un error en la eliminación del evento solicitado';
+            return redirect('/movimientos')->with('error',$mensaje);   
+        }        
+    }
+
+    //Mostrar formulario de edicion
+    public function edit($id){
+        try{
+            $movimiento = Movimiento::findOrFail($id);
+            $patrones = DB::table('patrons')
+            ->select('patrons.id_patron as instrumento',
+                    'patrons.instrumento_id as id'
+            );
+            $equipos = DB::table('equipos')
+            ->select('equipos.nro_equipo as instrumento',
+                    'equipos.instrumento_id as id'
+            );
+            $instrumentos = $patrones->union($equipos)
+            ->orderBy('instrumento')
+            ->get();     
+            return view('calidad.movimientos.editarMovimiento',['movimiento'=>$movimiento,'instrumentos'=>$instrumentos]);
+        }catch (Throwable $e) { 
+            $mensaje='Se ha producido un error al cargar el recurso solicitado';
+            return redirect('/movimientos')->with('error',$mensaje);
         }    
+    }
+
+    //Update
+    public function update(Request $request, $id)
+    {    
+        try{   
+            $validatedData = $request->validate([
+                'fecha_movimiento' => ['required'],
+                'descripcion' => ['required'],
+                'instrumento_id' => ['required'],
+            ]);  
+            $movimiento = Movimiento::findOrFail($id);
+            $movimiento->fecha_movimiento = $request->fecha_movimiento;
+            $movimiento->descripcion = $request->descripcion;
+            $movimiento->instrumento_id = $request->instrumento_id;
+            $movimiento->save();
+            return redirect('/movimientos')->with('edition','El evento se editó correctamente');
+        }catch (Throwable $e) { 
+            if($e->getMessage()=="The given data was invalid."){
+                return back()->withErrors($e->validator);
+            }else{
+               $mensaje='Se ha producido un error al editar el evento.';
+                return redirect('/movimientos')->with('error',$mensaje);
+            }
+        }        
     }
 }

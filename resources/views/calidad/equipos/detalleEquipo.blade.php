@@ -24,12 +24,14 @@
 
 @section('content')
 <div class="container mt-2">
+    @if(Auth::user()->tipoUsuario=='calidad')
     <div class="row">
         <div class="col-md-12 col-sm-6 mb-2">
             <a href="#" class="btn btn-primary">Editar</a>
             <a href="#" class="btn btn-danger">Eliminar</a>
         </div>
     </div>
+    @endif
     <div class="card">
         <div class="card-header subform-card">
             DATOS GENERALES   
