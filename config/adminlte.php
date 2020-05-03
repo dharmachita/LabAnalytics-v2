@@ -271,12 +271,12 @@ return [
             [
                 [
                     'text' => 'Inlcuir Reparación',
-                    'url'  => '#',
+                    'url'  => 'reparaciones/nuevo',
                     'icon_color'=>'red',
                 ],
                 [
                     'text' => 'Ver Reparación',
-                    'url'  => '#',
+                    'url'  => 'reparaciones',
                     'icon_color'=>'yellow',
                 ],
             ],
@@ -288,7 +288,7 @@ return [
             [
                 [
                     'text' => 'Agregar Movimiento',
-                    'url'  => '#',
+                    'url'  => 'movimientos/nuevo',
                     'icon_color'=>'red',
                 ],
                 [

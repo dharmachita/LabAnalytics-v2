@@ -82,7 +82,7 @@
                 <!-- Tipo Usuario -->
                 <div class="input-group mb-3">
                     <select name="tipoUsuario" id="tipoUsuario" class=" form-control {{ $errors->has('tipoUsuario') ? 'is-invalid' : '' }}" value="{{ old('tipoUsuario') }}"">
-                        <option value="">Tipo de Usuario</option>
+                        <option value="" hidden dissabled>Tipo de Usuario</option>
                         <option value="calidad">Control de Calidad</option>
                         <option value="laboratorio">Laboratorio</option>
                     </select>

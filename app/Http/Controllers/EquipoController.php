@@ -210,14 +210,41 @@ class EquipoController extends Controller
                 
                 foreach($movimientos as $movimiento){
                     $movimiento->fecha_movimiento = Carbon::parse($movimiento->fecha_movimiento);
+                }
+                
+                //REPARACIONES
+                $reparaciones=DB::table('reparacions')
+                    ->join('equipos','reparacions.equipo_id','equipos.id')
+                    ->where('equipos.instrumento_id','=',$id)
+                    ->orderBy('fecha_reparacion','desc')
+                    ->limit('5')
+                    ->get();
+                
+                $cantidadRep=DB::table('reparacions')
+                    ->join('equipos','reparacions.equipo_id','equipos.id')
+                    ->where('instrumento_id','=',$id)
+                    ->count();   
+                
+                foreach($reparaciones as $reparacion){
+                    $reparacion->fecha_reparacion = Carbon::parse($reparacion->fecha_reparacion);
                 }    
                 
                 return view('calidad.equipos.detalleEquipo',
                     [
                     'equipo'=>$equipo,
                     'movimientos'=>$movimientos,
-                    'cantidadMov'=>$cantidadMov
+                    'cantidadMov'=>$cantidadMov,
+                    'reparaciones'=>$reparaciones,
+                    'cantidadRep'=>$cantidadRep,
                     ]);
+                    /*return
+                    dd([
+                    'equipo'=>$equipo,
+                    'movimientos'=>$movimientos,
+                    'cantidadMov'=>$cantidadMov,
+                    'reparaciones'=>$reparaciones,
+                    'cantidadRep'=>$cantidadRep,
+                    ]); */   
         }catch(Throwable $e){
             $mensaje='No se puede mostrar el equipo solicitado';
             return redirect('/equipos')->with('error',$mensaje);

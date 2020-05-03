@@ -67,7 +67,7 @@
             REPARACIONES   
         </div>
         <div class="card-body">
-            @include('calidad.equipos.detalles.reparaciones')
+            @include('calidad.reparaciones.resumen')
         </div>
     </div>
 </div>

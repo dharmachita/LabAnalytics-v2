@@ -50,6 +50,28 @@ class MovimientoController extends Controller
         }        
     }
 
+    //mostrar formulario nuevo
+    public function indexNuevo()
+    {   
+        try{
+            $patrones = DB::table('patrons')
+            ->select('patrons.id_patron as instrumento',
+                    'patrons.instrumento_id as id'
+            );
+            $equipos = DB::table('equipos')
+            ->select('equipos.nro_equipo as instrumento',
+                    'equipos.instrumento_id as id'
+            );
+            $instrumentos = $patrones->union($equipos)
+            ->orderBy('instrumento')
+            ->get();     
+            return view('calidad.movimientos.nuevoMovimiento',['instrumentos'=>$instrumentos]);
+        }catch (Throwable $e) { 
+            $mensaje='Se ha producido un error al cargar el recurso solicitado';
+            return redirect('/movimientos')->with('error',$mensaje);
+        }    
+    }  
+
     //Delete
     public function destroy($id)
     {
@@ -109,5 +131,29 @@ class MovimientoController extends Controller
                 return redirect('/movimientos')->with('error',$mensaje);
             }
         }        
+    }
+
+    //crear
+    public function store(Request $request){
+        try{   
+            $validatedData = $request->validate([
+                'fecha_movimiento' => ['required'],
+                'descripcion' => ['required'],
+                'instrumento_id' => ['required'],
+            ]);  
+            $movimiento = new Movimiento;
+            $movimiento->fecha_movimiento = $request->fecha_movimiento;
+            $movimiento->descripcion = $request->descripcion;
+            $movimiento->instrumento_id = $request->instrumento_id;
+            $movimiento->save();
+            return redirect('/movimientos')->with('success','Se creó un nuevo evento para el equipo seleccionado');
+        }catch (Throwable $e) { 
+            if($e->getMessage()=="The given data was invalid."){
+                return back()->withErrors($e->validator);
+            }else{
+               $mensaje='Se ha producido un error al editar el evento.';
+                return redirect('/movimientos')->with('error',$mensaje);
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ class CreatePatronsTable extends Migration
         Schema::create('patrons', function (Blueprint $table) {
             $table->id();
             $table->string('id_patron');
-            $table->float('valor_nominal');
+            $table->float('valor_nominal',10,5);
             $table->string('unidad_medida');
             $table->unsignedBigInteger('tipo_patron_id');
             $table->unsignedBigInteger('instrumento_id');

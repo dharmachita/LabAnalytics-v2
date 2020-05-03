@@ -17,11 +17,11 @@ class CreateEquiposTable extends Migration
             $table->id();
             $table->string('nro_equipo');
             $table->string('modelo');
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->boolean('es_calibrable');
-            $table->float('emp');
-            $table->float('apreciacion');
-            $table->string('rango');
+            $table->float('emp',8,4)->nullable();
+            $table->float('apreciacion',8,4)->nullable();
+            $table->string('rango')->nullable();
             $table->unsignedBigInteger('tipo_equipo_id');
             $table->unsignedBigInteger('ubicacion_id');
             $table->unsignedBigInteger('instrumento_id');
