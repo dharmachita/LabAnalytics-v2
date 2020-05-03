@@ -32,7 +32,7 @@
                         data-toggle="modal" data-target="#DeleteModalMov{{$key}}"
                         >Eliminar
                     </button>
-                    <a href="/movimientos/{{$movimiento->id}}/edit" 
+                    <a href="{{url('/movimientos/'.$movimiento->id.'/edit')}}" 
                     type="button" 
                     class="btn btn-secondary btn-sm mb-1"                        
                     >Editar

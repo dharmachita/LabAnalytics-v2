@@ -3,7 +3,7 @@
     <div class="row">
         @if(Auth::user()->tipoUsuario == "calidad")
         <div class="col-md-8 mb-2">
-            <a href="reparaciones/nuevo" class="btn btn-success"><i class="fas fa-plus-circle pr-1"></i>Nueva</a> 
+            <a href="{{ url('/reparaciones_nuevo') }}" class="btn btn-success"><i class="fas fa-plus-circle pr-1"></i>Nueva</a> 
         </div>
         @endif
         @include('search_form')  
@@ -28,7 +28,7 @@
                 <td>{{$reparacion->fecha->format('d-m-yy')}}</td>
                 <td>{{$reparacion->descripcion}}</td>
                 <td>
-                    <a href="reparaciones/{{$reparacion->id}}" 
+                    <a href="{{ url('/reparaciones/detalle/'.$reparacion->id) }}" 
                     type="button" 
                     class="btn btn-primary btn-sm mb-1"                        
                     >Ver Detalle...
@@ -47,7 +47,7 @@
             <tbody class="tablaBusqueda"> 
                 @foreach ($reparaciones as $key=>$reparacion)
                 <tr>
-                    <td>{{$reparacion->equipo}} <p><a href="reparaciones/{{$reparacion->id}}" 
+                    <td>{{$reparacion->equipo}} <p><a href="{{ url('/reparaciones/detalle/'.$reparacion->id) }}" 
                         type="button" 
                         class="btn btn-primary btn-sm mb-1"                        
                         >Ver...

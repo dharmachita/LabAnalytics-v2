@@ -14,7 +14,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/tipo_patron">Tipo de Patron</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/tipo_patron')}}">Tipo de Patron</a></li>
                 <li class="breadcrumb-item active">Editar</li>
                 </ol>
             </div>
@@ -30,7 +30,7 @@
                         <b>Formulario de Edición</b>
                     </div>
                     <div class="card-body">
-                        <form action="/tipo_patron/{{$tipo->id}}" method="POST" role="form">
+                        <form action="{{url('/tipo_patron/'.$tipo->id)}}" method="POST" role="form">
                         {{ method_field('PUT') }}
                         {{ csrf_field() }}
                             <div class="form-group">

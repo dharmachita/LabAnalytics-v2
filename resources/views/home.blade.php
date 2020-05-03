@@ -22,7 +22,7 @@
 @section('content')
 <div class="container">
 
-Aquí iria toda la información del panel principal
+@include('homeCards')
 
 </div>
 @endsection

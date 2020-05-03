@@ -12,7 +12,7 @@
             ¿Está seguro que desea eliminar la ubicación: <strong> {{$ubicacion->nombre}}</strong>?
         </div>
         <div class="modal-footer">
-            <form action="/ubicaciones/{{$ubicacion->id}}" method="POST" role="form">
+            <form action="{{url('/ubicacion/'.$ubicacion->id)}}" method="POST" role="form">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

@@ -1,8 +1,10 @@
 <div class="container">
     <div class="row">
+        @if(Auth::user()->tipoUsuario=='calidad')
         <div class="col-md-8 mb-2">
-            <a href="equipos/nuevo" class="btn btn-success"><i class="fas fa-plus-circle pr-1"></i>Crear</a> 
+            <a href="{{url('/equipos/nuevo')}}" class="btn btn-success"><i class="fas fa-plus-circle pr-1"></i>Crear</a> 
         </div>
+        @endif
         @include('search_form')  
     </div>
     
@@ -32,7 +34,7 @@
                 <td>{{$equipo->serie}}</td>
                 <td>{{$equipo->ubicacion}}</td>
                 <td>
-                    <a href="/equipos/detalle/{{$equipo->id}}" 
+                    <a href="{{url('/equipos/detalle/'.$equipo->id)}}" 
                     type="button" 
                     class="btn btn-primary btn-sm mb-1"                        
                     >Ver Detalle...
@@ -53,7 +55,7 @@
             @foreach ($equipos as $key=>$equipo)
             <tr>
                 <td>{{$equipo->nro_equipo}} <br> {{$equipo->tipo}}
-                    <a href="/equipos/detalle/{{$equipo->id}}" 
+                    <a href="{{url('/equipos/detalle/'.$equipo->id)}}" 
                         type="button" 
                         class="btn btn-primary btn-sm mb-1"                        
                     >Ver Detalle...

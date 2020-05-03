@@ -105,6 +105,7 @@ Route::put('/movimientos/{id}','MovimientoController@update')->middleware('calid
 Route::get('/movimientos/nuevo', 'MovimientoController@indexNuevo')->middleware('calidad');
 Route::post('/movimientos/nuevo', 'MovimientoController@store')->middleware('calidad');
 
+Route::get('/movimientos/{id}', function () {return abort(404);})->middleware('calidad');
 
 /**********************************************************************
                         CRUD - REPARACIONES
@@ -112,9 +113,10 @@ Route::post('/movimientos/nuevo', 'MovimientoController@store')->middleware('cal
 
 //VISUALIZAR REPARACIONES
 Route::get('/reparaciones','ReparacionController@index')->middleware('auth');
+Route::get('/reparaciones/{id}', function () {return abort(404);})->middleware('calidad');
 
 //DETALLE DE REPARACIONES
-Route::get('/reparaciones/{id}','ReparacionController@show')->middleware('auth');
+Route::get('/reparaciones/detalle/{id}','ReparacionController@show')->middleware('auth');
 
 //ELIMINAR REPARACIONES
 Route::delete('/reparaciones/{id}','ReparacionController@destroy')->middleware('calidad');
@@ -123,8 +125,9 @@ Route::delete('/reparaciones/{id}','ReparacionController@destroy')->middleware('
 Route::put('/reparaciones/{id}','ReparacionController@update')->middleware('calidad');
 
 //CREAR REPARACIONES
-Route::get('/reparaciones/nuevo', 'ReparacionController@indexNuevo')->middleware('calidad');
-Route::post('/reparaciones/nuevo', 'ReparacionController@store')->middleware('calidad');
+Route::get('/reparaciones_nuevo', 'ReparacionController@indexNuevo')->middleware('calidad');
+Route::post('/reparaciones', 'ReparacionController@store')->middleware('calidad');
 
 //CREAR EVENTO
-Route::post('/reparaciones/crear_evento', 'ReparacionController@crearEvento')->middleware('calidad');
+Route::post('/crear_evento', 'ReparacionController@crearEvento')->middleware('calidad');
+Route::get('/crear_evento', function () {return abort(404);})->middleware('calidad');

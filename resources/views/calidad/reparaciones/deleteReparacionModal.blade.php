@@ -12,7 +12,7 @@
             ¿Está seguro que desea eliminar el registro actual?
         </div>
         <div class="modal-footer">
-            <form action="/reparaciones/{{$reparacion->id}}" method="POST" role="form">
+            <form action="{{ url('/reparaciones/'.$reparacion->id) }}" method="POST" role="form">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

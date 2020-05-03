@@ -1,9 +1,11 @@
 <div class="container">
     
     <div class="row">
+        @if(Auth::user()->tipoUsuario=='calidad')
         <div class="col-md-8 mb-2">
-            <a href="patrones/nuevo" class="btn btn-success"><i class="fas fa-plus-circle pr-1"></i>Crear</a> 
+            <a href="{{url('patrones/nuevo')}}" class="btn btn-success"><i class="fas fa-plus-circle pr-1"></i>Crear</a> 
         </div>
+        @endif
         @include('search_form')  
     </div>
 
@@ -28,7 +30,7 @@
                 <td>{{$patron->unidad_medida}}</td>
                 <td>{{$patron->tipo}}</td>
                 <td>
-                    <a href="/patrones/detalle/{{$patron->id}}" 
+                    <a href="{{url('/patrones/detalle/'.$patron->id)}}" 
                     type="button" 
                     class="btn btn-primary btn-sm mb-1"                        
                     >Ver Detalle...
@@ -48,7 +50,7 @@
             <tbody class="tablaBusqueda"> 
                 @foreach ($patrones as $key=>$patron)
                 <tr>
-                    <td>{{$patron->serie}} <p><a href="/patrones/detalle/{{$patron->id}}" 
+                    <td>{{$patron->serie}} <p><a href="{{url('/patrones/detalle/'.$patron->id)}}" 
                         type="button" 
                         class="btn btn-primary btn-sm mb-1"                        
                         >Ver...

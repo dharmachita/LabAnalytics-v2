@@ -100,7 +100,8 @@ class MovimientoController extends Controller
             );
             $instrumentos = $patrones->union($equipos)
             ->orderBy('instrumento')
-            ->get();     
+            ->get(); 
+            $movimiento->fecha_movimiento = Carbon::parse($movimiento->fecha_movimiento);
             return view('calidad.movimientos.editarMovimiento',['movimiento'=>$movimiento,'instrumentos'=>$instrumentos]);
         }catch (Throwable $e) { 
             $mensaje='Se ha producido un error al cargar el recurso solicitado';

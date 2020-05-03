@@ -12,7 +12,7 @@
             ¿Está seguro que desea eliminar el evento asociado al instrumento: <strong> {{$movimiento->instrumento}}</strong>?
         </div>
         <div class="modal-footer">
-            <form action="/movimientos/{{$movimiento->id}}" method="POST" role="form">
+            <form action="{{url('/movimientos/'.$movimiento->id)}}" method="POST" role="form">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

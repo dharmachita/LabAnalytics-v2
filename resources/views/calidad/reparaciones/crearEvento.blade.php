@@ -12,7 +12,7 @@
                     <b>Incluir Evento</b>
                 </div>
                 <div class="card-body">
-                    <form action="/reparaciones/crear_evento" method="POST" role="form">
+                    <form action="{{ url('/crear_evento') }}" method="POST" role="form">
                     {{ csrf_field() }}
                         <div class="form-group">
                             <label for="fecha_evento">Fecha</label>

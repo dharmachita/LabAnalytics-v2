@@ -271,7 +271,7 @@ return [
             [
                 [
                     'text' => 'Inlcuir Reparación',
-                    'url'  => 'reparaciones/nuevo',
+                    'url'  => 'reparaciones_nuevo',
                     'icon_color'=>'red',
                 ],
                 [

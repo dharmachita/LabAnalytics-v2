@@ -11,6 +11,7 @@ use Throwable;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Evento;
+use App\Movimiento;
 
 class ReparacionController extends Controller
 {
@@ -44,6 +45,7 @@ class ReparacionController extends Controller
     //mostrar formulario nuevo
     public function indexNuevo()
     {   
+        
         try{
             $equipos = DB::table('equipos')
             ->select('equipos.nro_equipo as equipo',
@@ -127,15 +129,34 @@ class ReparacionController extends Controller
                 'descripcion' => ['required'],
                 'equipo_id' => ['required'],
                 'proveedor' => ['required'],
-            ]);  
-            $reparacion = new Reparacion;
-            $reparacion->fecha_reparacion = $request->fecha_reparacion;
-            $reparacion->descripcion = $request->descripcion;
-            $reparacion->equipo_id = $request->equipo_id;
-            $reparacion->proveedor = $request->proveedor;
-            $reparacion->costo = $request->costo;
-            $reparacion->verificacion = $request->verificacion;
-            $reparacion->save();
+                'costo'=>['numeric','nullable'],
+            ]);
+         
+            $dataReparacion=[
+                'fecha_reparacion' => $request->fecha_reparacion,
+                'descripcion' => $request->descripcion,
+                'equipo_id' => $request->equipo_id,
+                'proveedor' => $request->proveedor,
+                'verificacion' => $request->verificacion,
+                'costo' => $request->costo,
+            ];
+            $reparacion = Reparacion::create($dataReparacion);
+            $evento= new Evento();
+            $evento->fecha_evento = $request->fecha_reparacion;
+            $evento->descripcion='Se crea el registro de la reparacion';
+            $evento->reparacion_id=$reparacion->id;
+            $evento->save();
+
+            $equipo=DB::table('equipos')
+            ->select('instrumento_id')
+            ->where('id','=',$request->equipo_id)
+            ->first();
+            $movimiento = new Movimiento();
+            $movimiento->fecha_movimiento = $request->fecha_reparacion;
+            $movimiento->instrumento_id=$equipo->instrumento_id;
+            $movimiento->descripcion='Se registra evento de reparacion';
+            $movimiento->save();
+
             $mensaje='Se cargó una nueva reparación para el equipo seleccionado';
             return redirect('/reparaciones')->with('success',$mensaje);
         }catch (Throwable $e) { 
@@ -177,7 +198,7 @@ class ReparacionController extends Controller
             return redirect('/reparaciones')->with('error',$mensaje);
         }  
     }
-
+    
     public function crearEvento(Request $request){
         try{   
             $validatedData = $request->validate([

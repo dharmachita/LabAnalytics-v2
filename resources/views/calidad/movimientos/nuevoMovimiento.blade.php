@@ -14,7 +14,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/movimientos">Movimientos</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/movimientos')}}">Movimientos</a></li>
                 <li class="breadcrumb-item active">Nuevo</li>
                 </ol>
             </div>
@@ -30,7 +30,7 @@
                         <b>Formulario de Creación de Evento</b>
                     </div>
                     <div class="card-body">
-                        <form action="/movimientos/nuevo" method="POST" role="form">
+                        <form action="{{url('/movimientos/nuevo')}}" method="POST" role="form">
                         {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="instrumento_id">Instrumento</label>

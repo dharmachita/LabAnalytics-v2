@@ -12,7 +12,7 @@
             ¿Está seguro que desea eliminar el tipo de equipo: <strong> {{$tipo->nombre}}</strong>?
         </div>
         <div class="modal-footer">
-            <form action="/tipo_equipo/{{$tipo->id}}" method="POST" role="form">
+            <form action="{{url('/tipo_equipo/'.$tipo->id)}}" method="POST" role="form">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

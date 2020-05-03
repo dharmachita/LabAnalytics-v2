@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <label for="fecha_movimiento">Fecha de Evento</label>
                                 <input type="date" 
-                                class="form-control {{ $errors->has('fecha_movimiento') ? 'is-invalid' : '' }}" value="{{ $movimiento->fecha_movimiento }}" 
+                                class="form-control {{ $errors->has('fecha_movimiento') ? 'is-invalid' : '' }}" value="{{ $movimiento->fecha_movimiento->format('yy-m-d') }}" 
                                 name="fecha_movimiento">
                                 @if ($errors->has('fecha_movimiento'))
                                     <div class="invalid-feedback">

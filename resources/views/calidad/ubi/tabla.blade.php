@@ -22,7 +22,7 @@
                     data-toggle="modal" data-target="#DeleteModal{{$key}}"
                     >Eliminar
                     </button>
-                    <a href="/ubicaciones/{{$ubicacion->id}}/edit" 
+                    <a href="{{url('/ubicaciones/'.$ubicacion->id)}}/edit" 
                     type="button" 
                     class="btn btn-secondary btn-sm mb-1"                        
                     >Editar
