@@ -37,3 +37,18 @@
     display: none;
     }
 }
+
+.progress-text{
+    text-align: right;
+}
+
+.text-info{
+    text-align: center;
+    color:white;
+    text-decoration: none;
+}
+
+.number-home{
+    font-size: 50px;
+    text-align: center;
+}

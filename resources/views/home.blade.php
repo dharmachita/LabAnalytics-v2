@@ -29,4 +29,5 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_costom.css"> 
+    <link rel="stylesheet" href="/css/custom.css"> 
 @endsection

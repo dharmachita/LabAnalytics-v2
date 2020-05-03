@@ -187,7 +187,8 @@ class ReparacionController extends Controller
             $reparacion->fecha_reparacion = Carbon::parse($reparacion->fecha_reparacion);
             
             $eventos = DB::table('eventos')
-                ->where('reparacion_id','=',$id)        
+                ->where('reparacion_id','=',$id)
+                ->orderBy('fecha_evento','desc')        
                 ->get();
             foreach($eventos as $evento){
                 $evento->fecha_evento = Carbon::parse($evento->fecha_evento);    
